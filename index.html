@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Taskflow — To-Do List</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body { background: #f3f1ff; }
+  .task-enter { animation: taskIn .22s ease both; }
+  @keyframes taskIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .strike { text-decoration: line-through; text-decoration-thickness: 2px; }
+</style>
+</head>
+<body class="min-h-screen text-slate-800">
+
+  <div class="mx-auto flex min-h-screen w-full max-w-xl flex-col px-4 py-10 sm:py-14">
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+      <div class="mb-3 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-lg shadow-violet-300">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Taskflow</h1>
+      <p class="mt-1 text-sm text-slate-500">A clean place to keep track of what's next.</p>
+    </header>
+
+    <!-- Add task -->
+    <form id="addForm" class="mb-5 flex items-center gap-2 rounded-2xl bg-white p-2 shadow-sm shadow-slate-200 ring-1 ring-slate-100">
+      <input
+        id="taskInput"
+        type="text"
+        placeholder="Add a task..."
+        autocomplete="off"
+        class="min-w-0 flex-1 rounded-xl border-0 bg-transparent px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+      />
+      <button
+        type="submit"
+        class="flex-shrink-0 rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 active:scale-95"
+      >
+        Add
+      </button>
+    </form>
+
+    <!-- Stats + filters -->
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <p id="statsText" class="text-sm text-slate-500">No tasks yet</p>
+      <div id="filters" class="flex items-center gap-1 rounded-full bg-white p-1 text-xs font-medium shadow-sm shadow-slate-200 ring-1 ring-slate-100">
+        <button data-filter="all" class="filter-btn rounded-full px-3 py-1.5 transition">All</button>
+        <button data-filter="active" class="filter-btn rounded-full px-3 py-1.5 transition">Active</button>
+        <button data-filter="completed" class="filter-btn rounded-full px-3 py-1.5 transition">Done</button>
+      </div>
+    </div>
+
+    <!-- List -->
+    <div class="flex-1 overflow-hidden rounded-2xl bg-white shadow-sm shadow-slate-200 ring-1 ring-slate-100">
+      <ul id="taskList" class="divide-y divide-slate-100"></ul>
+      <div id="emptyState" class="hidden flex-col items-center gap-2 px-6 py-14 text-center">
+        <div class="text-3xl">🗒️</div>
+        <p class="text-sm font-medium text-slate-600">Nothing here</p>
+        <p class="text-xs text-slate-400">Add a task above to get started.</p>
+      </div>
+    </div>
+
+    <!-- Footer actions -->
+    <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+      <span id="remainingText">0 remaining</span>
+      <button id="clearCompleted" class="font-medium text-slate-400 transition hover:text-rose-500">
+        Clear completed
+      </button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
